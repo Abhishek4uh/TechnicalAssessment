@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.MainFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/bookshelf"
+        android:padding="16dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:background="#535253"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:textSize="18sp"
+        android:layout_margin="12dp"
+        android:textColor="@color/black"
+        android:text="@string/sort_by"/>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toEndOf="@id/tvSortBy">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sortTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:paddingHorizontal="18dp"
+            android:background="@drawable/filter_unselected_bg"
+            android:text="@string/title"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sortHits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="18dp"
+            android:paddingHorizontal="18dp"
+            android:background="@drawable/filter_unselected_bg"
+            android:text="@string/hits"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sortFavs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="18dp"
+            android:paddingHorizontal="18dp"
+            android:background="@drawable/filter_unselected_bg"
+            android:text="@string/favs"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAscending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSortBy"
+        android:text="@string/ascending_orders"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_margin="15dp"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/idSwitch"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:checked="true"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/tvAscending"
+        app:layout_constraintTop_toBottomOf="@id/tvSortBy"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBooks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        tools:listitem="@layout/books_item"
+        android:clipToPadding="false"
+        app:layout_constrainedHeight="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tvAscending"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

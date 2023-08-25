@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="shelf_App">Shelf App</string>
+    <string name="bookshelf">Your Bookshelf</string>
+    <string name="sort_by">Sort by:</string>
+    <string name="title">Title</string>
+    <string name="hits">Hits</string>
+    <string name="favs">Favs</string>
+    <string name="ascending_orders">Ascending Order -</string>
+    <string name="title_of_manga">Title of Manga</string>
+    <string name="hits_4045">Hits 4567</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_messsage">Error Messsage</string>
+
+    <string name="pass_generate">For password, min 8 characters with atleast one number, special characters[!@#$%&amp;()], one lowercase letter, and one uppercase letter is mandatory.</string>
+
+
+</resources>

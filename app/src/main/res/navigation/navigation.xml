@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/loginFragment5">
+
+
+    <fragment
+        android:id="@+id/loginFragment5"
+        android:name="com.example.myapplication.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment5_to_signupFragment3"
+            app:destination="@id/signupFragment3" />
+        <action
+            android:id="@+id/action_loginFragment5_to_mainFragment2"
+            app:destination="@id/mainFragment2"
+            app:popUpTo="@id/loginFragment5"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signupFragment3"
+        android:name="com.example.myapplication.ui.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment3_to_loginFragment5"
+            app:destination="@id/loginFragment5"/>
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="com.example.myapplication.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main"/>
+</navigation>

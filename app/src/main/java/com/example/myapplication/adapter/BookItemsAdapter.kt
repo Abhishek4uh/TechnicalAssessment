@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.myapplication.callback.AddToFavorite
 import com.example.myapplication.databinding.BooksItemBinding
 import com.example.myapplication.model.ItemModel
+import com.example.myapplication.roomdb.FavBookModel
 
 
-class BookItemsAdapter:RecyclerView.Adapter<BookItemsAdapter.MyViewHolder>()  {
+class BookItemsAdapter(private val addToFavorite: AddToFavorite):RecyclerView.Adapter<BookItemsAdapter.MyViewHolder>()  {
 
     private var cxt: Context?=null
     private var dataList: MutableList<ItemModel> = mutableListOf()
@@ -25,6 +27,12 @@ class BookItemsAdapter:RecyclerView.Adapter<BookItemsAdapter.MyViewHolder>()  {
         holder.mBinding.tvTitle.text = currentData.title
         holder.mBinding.tvHits.text = "Hits ${currentData.hits}"
         Glide.with(cxt!!).load(currentData.image).into(holder.mBinding.ivBookPoster)
+
+
+        holder.mBinding.cbToFav.setOnCheckedChangeListener { _, isChecked ->
+            val favBookModel=FavBookModel(currentData.id,currentData.title,currentData.hits.toString(),currentData.image)
+            addToFavorite.addedToFavorite(favBookModel,isChecked)
+        }
     }
 
     override fun getItemCount(): Int {

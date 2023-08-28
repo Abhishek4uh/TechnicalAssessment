@@ -8,11 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.myapplication.R
 import com.example.myapplication.adapter.BookItemsAdapter
+import com.example.myapplication.callback.AddToFavorite
 import com.example.myapplication.data.JsonDataProvider
 import com.example.myapplication.databinding.FragmentMainBinding
 import com.example.myapplication.model.ItemModel
+import com.example.myapplication.roomdb.FavBookModel
+import com.example.myapplication.roomdb.FavoriteBookViewModel
 import com.google.gson.Gson
 
 
@@ -24,10 +29,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),AddToFavorite {
 
     private var mBinding: FragmentMainBinding? = null
     private lateinit var bookItemsAdapter: BookItemsAdapter
+    private val viewModel:FavoriteBookViewModel by viewModels()
     private var switchToggle=-1
 
 
@@ -61,7 +67,7 @@ class MainFragment : Fragment() {
         val jsonData = JsonDataProvider.getJsonData()
         val gson = Gson()
         val animeItemList: List<ItemModel> = gson.fromJson(jsonData, Array<ItemModel>::class.java).toList()
-        bookItemsAdapter= BookItemsAdapter()
+        bookItemsAdapter= BookItemsAdapter(this)
         mBinding?.rvBooks?.adapter=bookItemsAdapter
         bookItemsAdapter.populateData(animeItemList)
     }
@@ -92,7 +98,10 @@ class MainFragment : Fragment() {
                 mBinding?.idSwitch?.visibility=View.INVISIBLE
                 resetBg()
                 mBinding?.sortFavs?.background = ContextCompat.getDrawable(requireContext(), R.drawable.filter_selected_bg)
-                Toast.makeText(requireContext(), "Not Doing", Toast.LENGTH_SHORT).show()
+                //getting data from db
+                gettingDataFromDb()
+
+
             }
 
         mBinding?.idSwitch?.setOnCheckedChangeListener {_,isChecked ->
@@ -119,6 +128,17 @@ class MainFragment : Fragment() {
 
     }
 
+    private fun gettingDataFromDb() {
+        viewModel.allBooks.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                //Db has some Data
+            }
+            else{
+                //Db is Empty
+            }
+        })
+    }
+
     private fun resetBg(){
         mBinding?.sortTitle?.background = ContextCompat.getDrawable(requireContext(),R.drawable.filter_unselected_bg)
         mBinding?.sortHits?.background  =  ContextCompat.getDrawable(requireContext(),R.drawable.filter_unselected_bg)
@@ -135,6 +155,17 @@ class MainFragment : Fragment() {
                 putString(ARG_PARAM1, param1)
                 putString(ARG_PARAM2, param2)
             }
+        }
+    }
+
+    override fun addedToFavorite(favBookModel: FavBookModel,isChecked: Boolean) {
+        if (isChecked){
+            //Inserting
+            viewModel.addItem(favBookModel)
+        }
+        else{
+            //Deleting
+            viewModel.deleteItem(favBookModel.contentId.toString())
         }
     }
 }
